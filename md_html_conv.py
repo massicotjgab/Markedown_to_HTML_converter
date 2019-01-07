@@ -14,8 +14,8 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-to_convert = os.path.abspath(args.input_directory)
-where_convert = os.path.abspath(args.output_directory)
+to_convert = os.path.abspath("D:/Codes/RandomPythonCodes")
+where_convert = os.path.abspath("D:/Codes/RandomPythonCodes")
 way_conv = Path(to_convert)
 list_file_to_conv = way_conv.glob("**/*.markdown")
 
@@ -31,11 +31,14 @@ def em_func(reading):
         halfi = (i / 2) + 1
         i += 1
         while incmt < halfi:
-            index_star = reading.index("*")
+            if ("*" in reading):
+                index_star = reading.index("*")
             reading = reading[:index_star] + "<em>" + reading[index_star + 1 :]
             incmt += 1
         while incmt < i:
-            index_star = reading.index("*")
+            print("reading",reading)
+            if ("*" in reading):
+                index_star = reading.index("*")
             reading = reading[:index_star] + "</em>" + reading[index_star + 1 :]
             incmt += 1
 
@@ -87,10 +90,9 @@ for file_to_conv in list_file_to_conv:
 
             new_text += new_line
         os.chdir(where_convert)
-        converted_file = str(file_to_conv)[
-            str(file_to_conv).rindex("/") + 1 : str(file_to_conv).index(".")
-        ]
-        with open(f"{converted_file}.html", "w", encoding="utf-8") as final_file:
-            final_file.write(new_text)
-            print("Done! Thanks for using this script")
+        if ("/" in str(file_to_conv) and "." in str(file_to_conv)):
+            converted_file = str(file_to_conv)[str(file_to_conv).rindex("/") + 1 : str(file_to_conv).index(".")]
+            with open(f"{converted_file}.html", "w", encoding="utf-8") as final_file:
+                final_file.write(new_text)
+        print("Done! Thanks for using this script")
 ###
