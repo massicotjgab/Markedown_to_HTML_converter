@@ -7,14 +7,14 @@ parser = argparse.ArgumentParser(
     description="convert a markedown directory in a new html directory"
 )
 parser.add_argument(
-    "-i", "--imput-directory", help="directory you want to convert"
+    "-i", "--input-directory", help="directory you want to convert"
 )
 parser.add_argument(
     "-o", "--output-directory", help="where your directory will be converted"
 )
 args = parser.parse_args()
 
-to_convert = os.path.abspath(args.imput_directory)
+to_convert = os.path.abspath(args.input_directory)
 where_convert = os.path.abspath(args.output_directory)
 way_conv = Path(to_convert)
 list_file_to_conv = way_conv.glob("**/*.markdown")
@@ -28,19 +28,17 @@ def em_func(reading):
     incmt = 0
     while "*" in reading:
         i = reading.count("*")
-        halfi = i / 2
-        while incmt < (halfi + 1):
+        halfi = (i / 2) + 1
+        i += 1
+        while incmt < halfi:
             index_star = reading.index("*")
-            reading = (
-                reading[:index_star] + "<em>" + reading[index_star + 1 :]
-            )
+            reading = reading[:index_star] + "<em>" + reading[index_star + 1 :]
             incmt += 1
-        while incmt < (i + 1):
+        while incmt < i:
             index_star = reading.index("*")
-            reading = (
-                reading[:index_star] + "</em>" + reading[index_star + 1 :]
-            )
+            reading = reading[:index_star] + "</em>" + reading[index_star + 1 :]
             incmt += 1
+
 
 for file_to_conv in list_file_to_conv:
     new_text = ""
