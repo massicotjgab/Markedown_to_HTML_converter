@@ -22,32 +22,32 @@ list_file_to_conv = way_conv.glob("**/*.markdown")
 im_an_url = r"(http(s)?://[a-z0-9]+\.[a-z0-9]+)"
 be_a_list = False
 
+
+# important text function
+def em_func(reading):
+    incmt = 0
+    while "*" in reading:
+        i = reading.count("*")
+        halfi = i / 2
+        while incmt < (halfi + 1):
+            index_star = reading.index("*")
+            reading = (
+                reading[:index_star] + "<em>" + reading[index_star + 1 :]
+            )
+            incmt += 1
+        while incmt < (i + 1):
+            index_star = reading.index("*")
+            reading = (
+                reading[:index_star] + "</em>" + reading[index_star + 1 :]
+            )
+            incmt += 1
+
 for file_to_conv in list_file_to_conv:
     new_text = ""
     os.chdir(to_convert)
     with open(file_to_conv, "r", encoding="utf-8") as file_in_conv:
         for line in file_in_conv:
             new_line = line
-
-            # important text function
-            def em_func():
-                incmt = 0
-                while "*" in new_line:
-                    i = new_line.count("*")
-                    halfi = i / 2
-                    while incmt <= halfi:
-                        index_star = new_line.index("*")
-                        new_line = (
-                            new_line[:index_star] + "<em>" + new_line[index_star + 1 :]
-                        )
-                        incmt += 1
-                    while incmt <= i:
-                        index_star = new_line.index("*")
-                        new_line = (
-                            new_line[:index_star] + "</em>" + new_line[index_star + 1 :]
-                        )
-                        incmt += 1
-                    return new_line
 
             # TITLE conversion
             if "#" in new_line:
@@ -79,9 +79,9 @@ for file_to_conv in list_file_to_conv:
                     elif be_a_list:
                         new_text += list_ltag
                         be_a_list = False
-                    em_func()  # important text function
+                    em_func(new_line)  # important text function
                 elif nb_star % 2 == 0:
-                    em_func()  # important text function
+                    em_func(new_line)  # important text function
 
             # URL conversion
             if re.search(im_an_url, new_line) is not None:
