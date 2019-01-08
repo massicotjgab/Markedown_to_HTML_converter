@@ -9,7 +9,7 @@ it creates a new .html file for each .markedown found.
 
 * Download the Python file
 * Open a command prompt
-* Open with **Python3**
+* Open with **Python3.6** and higher
 
 The command with parameters is :
 

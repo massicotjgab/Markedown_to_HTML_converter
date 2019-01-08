@@ -14,8 +14,8 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-to_convert = os.path.abspath("D:/Codes/RandomPythonCodes")
-where_convert = os.path.abspath("D:/Codes/RandomPythonCodes")
+to_convert = os.path.abspath(args.input_directory)
+where_convert = os.path.abspath(args.output_directory)
 way_conv = Path(to_convert)
 list_file_to_conv = way_conv.glob("**/*.markdown")
 
